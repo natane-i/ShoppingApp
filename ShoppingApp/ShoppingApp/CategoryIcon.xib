@@ -51,8 +51,8 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="categoryLabel" destination="DxJ-h7-ps8" id="0jV-TO-6lH"/>
-                <outlet property="categoryView" destination="fUP-GO-KOY" id="D1H-6N-XQF"/>
+                <outlet property="categoryLabel" destination="DxJ-h7-ps8" id="TS3-hc-ALc"/>
+                <outlet property="categoryView" destination="fUP-GO-KOY" id="NRk-uB-lgB"/>
             </connections>
             <point key="canvasLocation" x="86" y="20"/>
         </view>

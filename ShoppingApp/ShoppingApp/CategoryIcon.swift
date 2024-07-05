@@ -12,4 +12,8 @@ class CategoryIcon: UICollectionViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var categoryView: UIView!
     
+    override func awakeFromNib() {
+            super.awakeFromNib()
+        }
+    
 }

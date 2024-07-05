@@ -7,8 +7,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
-    
+class ViewController: UIViewController, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+   
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var updateAtLabel: UILabel!
@@ -18,7 +19,11 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
         tableView.dataSource = self
+     
+        self.collectionView.register(UINib(nibName: "CategoryIcon", bundle: nil), forCellWithReuseIdentifier: "categoryIcon")
         self.tableView.register(UINib(nibName: "RankingCell", bundle: nil), forCellReuseIdentifier: "rankingCell")
         
         tableView.rowHeight = 125
@@ -27,6 +32,17 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
         
         fetchRanking()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryIcon", for: indexPath) as! CategoryIcon
+            
+        cell.categoryLabel.text = "総合"
+        return cell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
