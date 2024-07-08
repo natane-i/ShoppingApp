@@ -8,48 +8,68 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
-   
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            collectionView.register(UINib(nibName: "CategoryIcon", bundle: nil), forCellWithReuseIdentifier: "categoryIcon")
+        }
+    }
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.register(UINib(nibName: "RankingCell", bundle: nil), forCellReuseIdentifier: "rankingCell")
+            tableView.rowHeight = 125
+            tableView.estimatedRowHeight = 125
+            tableView.separatorStyle = .none
+            tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
+            
+        }
+    }
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var updateAtLabel: UILabel!
     
     let getRanking = GetRanking()
     var rankingData: [RankingData] = []
+    var updateDate: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        tableView.dataSource = self
-     
-        self.collectionView.register(UINib(nibName: "CategoryIcon", bundle: nil), forCellWithReuseIdentifier: "categoryIcon")
-        self.tableView.register(UINib(nibName: "RankingCell", bundle: nil), forCellReuseIdentifier: "rankingCell")
         
-        tableView.rowHeight = 125
-        tableView.estimatedRowHeight = 125
-        tableView.separatorStyle = .none
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
-        
-        fetchRanking()
+        fetchRanking(tag: .shopping)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return CategoryID.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryIcon", for: indexPath) as! CategoryIcon
-            
-        cell.categoryLabel.text = "総合"
+        
+        cell.setup()
+        
+        let categoryID = CategoryID.allCases[indexPath.item]
+        cell.categoryLabel.text = confirm(tag: categoryID)
+        
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCategory = CategoryID.allCases[indexPath.item]
+        
+        fetchRanking(tag: selectedCategory)
+        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryIcon {
+            cell.isSelected = true
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rankingCell", for: indexPath) as! RankingCell
         
         let rankData = rankingData[indexPath.row]
-        cell.configure(with: rankData)
+        cell.reloadCell(with: rankData)
         print(rankData)
         
         return cell
@@ -59,15 +79,53 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         return rankingData.count
     }
     
-    func fetchRanking() {
-        getRanking.fetchRanking() { [weak self] result in
+    func fetchRanking(tag: CategoryID) {
+        getRanking.fetchCategoryRanking(for: tag) { [weak self] result in
             DispatchQueue.main.async {
-                self?.rankingData = result
+                self?.rankingData = result.ranking_data
+                self?.updateDate = result.meta.last_modified
                 self?.tableView.reloadData()
+                self?.tagLabel.text = self?.confirm(tag: tag)
+//                self?.updateAtLabel.text = self?.dateFormat(with: updateDate)
             }
         }
     }
     
+    func confirm(tag: CategoryID) -> String {
+        var tagName = ""
+        
+        switch tag{
+        case .shopping:
+            tagName = "総合"
+        case.fashion:
+            tagName = "ファッション"
+        case .food:
+            tagName = "食品"
+        case .outdoor:
+            tagName = "アウトドア、釣り、旅行用品"
+        case .diet:
+            tagName = "ダイエット、健康"
+        case .beauty:
+            tagName = "コスメ、美容、ヘアケア"
+        case .computer:
+            tagName = "スマホ、タブレット、パソコン"
+        case .audio:
+            tagName = "テレビ、オーディオ、カメラ"
+        case .electoronics:
+            tagName = "家電"
+        case .furniture:
+            tagName = "家具、インテリア"
+        }
+        
+        return tagName
+    }
     
+    func dateFormat(with date: String) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日"
+        let dateString = formatter.date(from: date)
+    }
 }
+
+
 

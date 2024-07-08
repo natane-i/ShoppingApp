@@ -30,8 +30,20 @@ class RankingCell: UITableViewCell {
 
     }
     
-    func configure(with rankData: RankingData) {
-        let imageURL = rankData.image.medium
+    func reloadCell(with rankData: RankingData) {
+        rankingLabel.text = "\(rankData.rank)"
+        storeLabel.text = rankData.seller.name
+        nameLabel.text = rankData.item_information.name
+        rateLabel.text = "\(rankData.review.rate)"
+        countLabel.text = "(\(formatterNumber(with: rankData.review.count)))"
+        priceLabel.text = formatterNumber(with: rankData.item_information.regular_price)
+        
+        configure(with: rankData)
+        rank(at: rankData.rank)
+    }
+    
+    func configure(with rankingData: RankingData) {
+        let imageURL = rankingData.image.medium
         guard let url = URL(string: imageURL) else {
             return
         }
@@ -50,15 +62,10 @@ class RankingCell: UITableViewCell {
                 self.productImage.image = image
             }
         }.resume()
-        
-        rankingLabel.text = "\(rankData.rank)"
-        storeLabel.text = rankData.seller.name
-        nameLabel.text = rankData.item_information.name
-        rateLabel.text = "\(rankData.review.rate)"
-        countLabel.text = "(\(formatterNumber(with: rankData.review.count)))"
-        priceLabel.text = formatterNumber(with: rankData.item_information.regular_price)
-        
-        switch rankData.rank {
+    }
+    
+    func rank(at rankNum: Int) {
+        switch rankNum {
         case 1:
             rankingImage.tintColor = UIColor.colorFirst
             rankingLabel.textColor = UIColor.colorFirst

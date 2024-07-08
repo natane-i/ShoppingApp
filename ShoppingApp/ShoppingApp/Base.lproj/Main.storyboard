@@ -27,7 +27,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mf1-ZY-VD7">
-                                        <rect key="frame" x="0.0" y="42" width="393" height="46"/>
+                                        <rect key="frame" x="15" y="42" width="378" height="46"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mV9-q1-Tvt">
                                             <size key="itemSize" width="128" height="128"/>
@@ -36,7 +36,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="categoryIcon" id="Zhl-hc-dAN" customClass="CategoryIcon" customModule="ShoppingApp" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="categoryIcon" reuseIdentifier="categoryIcon" id="Zhl-hc-dAN" customClass="CategoryIcon" customModule="ShoppingApp" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="-41" width="128" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="21H-5e-nOS">
@@ -57,7 +57,7 @@
                                     <constraint firstItem="uz1-1i-nyq" firstAttribute="leading" secondItem="SGV-tg-ArB" secondAttribute="leading" constant="15" id="Rzm-wf-yzU"/>
                                     <constraint firstAttribute="bottom" secondItem="mf1-ZY-VD7" secondAttribute="bottom" constant="12" id="TGN-DY-0ES"/>
                                     <constraint firstAttribute="height" constant="100" id="Uwa-4i-6xy"/>
-                                    <constraint firstItem="mf1-ZY-VD7" firstAttribute="leading" secondItem="SGV-tg-ArB" secondAttribute="leading" id="gwv-QN-g2L"/>
+                                    <constraint firstItem="mf1-ZY-VD7" firstAttribute="leading" secondItem="SGV-tg-ArB" secondAttribute="leading" constant="15" id="gwv-QN-g2L"/>
                                     <constraint firstAttribute="trailing" secondItem="mf1-ZY-VD7" secondAttribute="trailing" id="nba-IU-dr3"/>
                                     <constraint firstItem="mf1-ZY-VD7" firstAttribute="top" secondItem="uz1-1i-nyq" secondAttribute="bottom" constant="12" id="oPz-Ht-fjw"/>
                                 </constraints>
