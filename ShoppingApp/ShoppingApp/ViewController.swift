@@ -70,7 +70,6 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         
         let rankData = rankingData[indexPath.row]
         cell.reloadCell(with: rankData)
-        print(rankData)
         
         return cell
     }
@@ -84,9 +83,9 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
             DispatchQueue.main.async {
                 self?.rankingData = result.ranking_data
                 self?.updateDate = result.meta.last_modified
+                self?.updateAtLabel.text = self?.updateDate
                 self?.tableView.reloadData()
                 self?.tagLabel.text = self?.confirm(tag: tag)
-//                self?.updateAtLabel.text = self?.dateFormat(with: updateDate)
             }
         }
     }
@@ -120,11 +119,7 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         return tagName
     }
     
-    func dateFormat(with date: String) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日"
-        let dateString = formatter.date(from: date)
-    }
+    
 }
 
 
