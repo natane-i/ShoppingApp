@@ -22,7 +22,7 @@ class CategoryIcon: UICollectionViewCell {
     }
     
     func updateAppearance() {
-        if isSelected {
+        if isSelected == true {
             categoryLabel.textColor = .white
             categoryView.backgroundColor = .colorTag
         } else {

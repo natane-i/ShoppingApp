@@ -28,7 +28,6 @@ class GetRanking {
             do {
                 let resultString = try JSONDecoder().decode(Ranking.self, from: data)
                 let result = resultString.high_rating_trend_ranking
-                print(result)
                 completion(result)
             } catch {
                 print("Error in decoding: \(error.localizedDescription)")

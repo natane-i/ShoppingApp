@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -16,19 +16,20 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
             collectionView.register(UINib(nibName: "CategoryIcon", bundle: nil), forCellWithReuseIdentifier: "categoryIcon")
         }
     }
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
+            tableView.delegate = self
             tableView.dataSource = self
             tableView.register(UINib(nibName: "RankingCell", bundle: nil), forCellReuseIdentifier: "rankingCell")
             tableView.rowHeight = 125
             tableView.estimatedRowHeight = 125
-            tableView.separatorStyle = .none
-            tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
-            
         }
     }
+    
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var updateAtLabel: UILabel!
+    @IBOutlet weak var toInfoView: UIImageView!
     
     let getRanking = GetRanking()
     var rankingData: [RankingData] = []
@@ -38,6 +39,14 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         super.viewDidLoad()
         
         fetchRanking(tag: .shopping)
+        setupGesture()
+        // shoppingタグのセルを取得して選択状態にする
+        DispatchQueue.main.async {
+            if let cell = self.collectionView.cellForItem(at: IndexPath(item: CategoryID.shopping.rawValue - 1, section: 0)) as? CategoryIcon {
+                cell.isSelected = true
+                print(CategoryID.shopping.rawValue)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -47,9 +56,8 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryIcon", for: indexPath) as! CategoryIcon
         
-        cell.setup()
-        
         let categoryID = CategoryID.allCases[indexPath.item]
+        cell.setup()
         cell.categoryLabel.text = fetchTagString(tag: categoryID)
         
         return cell
@@ -59,16 +67,19 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         let selectedCategory = CategoryID.allCases[indexPath.item]
         
         fetchRanking(tag: selectedCategory)
-        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryIcon {
-            cell.isSelected = true
+        
+        // 他のタグの選択状態を解除する
+        for i in 0..<CategoryID.allCases.count {
+            if let cell = collectionView.cellForItem(at: IndexPath(item: i, section: 0)) as? CategoryIcon {
+                cell.isSelected = i == indexPath.item
+            }
         }
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rankingCell", for: indexPath) as! RankingCell
         
-        let rankData = rankingData[indexPath.row]
+        let rankData = rankingData[indexPath.section]
         cell.reloadCell(with: rankData)
         weak var weakSelf = self
         cell.onTapLabel = { [weak weakSelf] url in
@@ -81,7 +92,34 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return rankingData.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 24
+    }
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        toInfoView.addGestureRecognizer(tapGesture)
+        toInfoView.isUserInteractionEnabled = true
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        let url = "https://developer.yahoo.co.jp/webapi/shopping/shopping/v1/highRatingTrendRanking.html"
+        
+        if let url = URL(string: url) {
+            let webVC = WebViewController(url: url)
+            present(webVC, animated: true, completion: nil)
+        }
     }
     
     func fetchRanking(tag: CategoryID) {
@@ -89,7 +127,9 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
             DispatchQueue.main.async {
                 self?.rankingData = result.ranking_data
                 self?.updateDate = result.meta.last_modified
-                self?.updateAtLabel.text = self?.updateDate
+                if let update = self?.updateDate as? String {
+                    self?.formatter(with: update)
+                }
                 self?.tableView.reloadData()
                 if tag == .shopping {
                     self?.tagLabel.text = "総合ランキング"
@@ -97,6 +137,17 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
                     self?.tagLabel.text = self?.fetchTagString(tag: tag)
                 }
             }
+        }
+    }
+    
+    func formatter(with dateString: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "yyyy年M月d日"
+            let outputDateString = dateFormatter.string(from: date)
+            updateAtLabel.text = "更新日：\(outputDateString)"
         }
     }
     
@@ -154,8 +205,7 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         
         return tagName
     }
-    
-    
+
 }
 
 

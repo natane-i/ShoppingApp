@@ -22,6 +22,7 @@ class RankingCell: UITableViewCell {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    @IBOutlet var stars: [UIImageView]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,24 +54,49 @@ class RankingCell: UITableViewCell {
         tappableLabels[countLabel] = rankData.review.url
         
         setupTapGestures()
+        updateStarImage(at: rankData.review.rate)
     }
     
-    private func setupTapGestures() {
-            for (label, url) in tappableLabels {
-                self.url = URL(string: url)
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-                label.addGestureRecognizer(tapGesture)
-                label.isUserInteractionEnabled = true
-                
+//    func updateStarImage(at rating: Double) {
+//        let roundedRating = round(rating * 2) / 2
+//        for (index, imageView) in stars.enumerated() {
+//            let fillLevel = min(1.0, max(0.0, roundedRating - Double(index)))
+//            imageView.image = fillLevel == 1.0 ? UIImage(systemName: "star.fill") :
+//            fillLevel == 0.0 ? UIImage(systemName: "star") : UIImage(named: "image_star_half")
+//        }
+//    }
+//
+    func updateStarImage(at rating: Double) {
+        let roundedRating = round(rating * 2) / 2
+        for (index, imageView) in stars.enumerated() {
+            let fillLevel = min(1.0, max(0.0, roundedRating - Double(index)))
+            if fillLevel == 1.0 {
+                imageView.image = UIImage(systemName: "star.fill")
+            } else if fillLevel == 0.0 {
+                imageView.image = UIImage(systemName: "star.fill")
+                imageView.tintColor = UIColor.colorGrayStar
+            } else {
+                imageView.image = UIImage(named: "image_star_half")
             }
         }
+    }
+
+    private func setupTapGestures() {
+        for (label, url) in tappableLabels {
+            self.url = URL(string: url)
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+            label.addGestureRecognizer(tapGesture)
+            label.isUserInteractionEnabled = true
+            
+        }
+    }
     
     @objc private func handleTap(_ sender: UITapGestureRecognizer) {
-            guard let label = sender.view as? UILabel, let urlString = tappableLabels[label], let url = URL(string: urlString) else {
-                return
-            }
-            onTapLabel?(url)
+        guard let label = sender.view as? UILabel, let urlString = tappableLabels[label], let url = URL(string: urlString) else {
+            return
         }
+        onTapLabel?(url)
+    }
     
     func configure(with rankingData: RankingData) {
         let imageURL = rankingData.image.medium
@@ -140,6 +166,10 @@ extension UIColor {
     
     static var colorPlaceholder: UIColor {
         return UIColor(named: "color_placeholder")!
+    }
+    
+    static var colorGrayStar: UIColor {
+        return UIColor(named: "color_gray_star")!
     }
 }
 

@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -50,13 +51,22 @@
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="utq-M6-VfQ"/>
                                         </connections>
                                     </collectionView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="qsi-J5-fWi">
+                                        <rect key="frame" x="348" y="13.333333333333329" width="20.333333333333314" height="19"/>
+                                        <color key="tintColor" name="color_placeholder"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="qsi-J5-fWi" secondAttribute="height" multiplier="1:1" id="0Q8-Fx-VCi"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="uz1-1i-nyq" firstAttribute="top" secondItem="SGV-tg-ArB" secondAttribute="top" constant="15" id="BS9-Yq-BOr"/>
+                                    <constraint firstItem="qsi-J5-fWi" firstAttribute="centerY" secondItem="uz1-1i-nyq" secondAttribute="centerY" id="KU7-Sa-GW4"/>
                                     <constraint firstItem="uz1-1i-nyq" firstAttribute="leading" secondItem="SGV-tg-ArB" secondAttribute="leading" constant="15" id="Rzm-wf-yzU"/>
                                     <constraint firstAttribute="bottom" secondItem="mf1-ZY-VD7" secondAttribute="bottom" constant="12" id="TGN-DY-0ES"/>
                                     <constraint firstAttribute="height" constant="100" id="Uwa-4i-6xy"/>
+                                    <constraint firstItem="qsi-J5-fWi" firstAttribute="leading" secondItem="uz1-1i-nyq" secondAttribute="trailing" constant="6" id="XTo-f2-TbT"/>
                                     <constraint firstItem="mf1-ZY-VD7" firstAttribute="leading" secondItem="SGV-tg-ArB" secondAttribute="leading" constant="15" id="gwv-QN-g2L"/>
                                     <constraint firstAttribute="trailing" secondItem="mf1-ZY-VD7" secondAttribute="trailing" id="nba-IU-dr3"/>
                                     <constraint firstItem="mf1-ZY-VD7" firstAttribute="top" secondItem="uz1-1i-nyq" secondAttribute="bottom" constant="12" id="oPz-Ht-fjw"/>
@@ -88,15 +98,14 @@
                                     <constraint firstAttribute="bottom" secondItem="M6j-Yl-Irv" secondAttribute="bottom" id="waN-LN-g2o"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="rankingCell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-Db-Z0d">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="rankingCell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-Db-Z0d">
                                 <rect key="frame" x="0.0" y="227" width="393" height="591"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rankingCell" id="zlb-ze-Ugz" customClass="RankingCell" customModule="ShoppingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zlb-ze-Ugz" id="reI-Po-Mn5">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -126,12 +135,13 @@
                         <outlet property="collectionView" destination="mf1-ZY-VD7" id="fzz-05-Qy3"/>
                         <outlet property="tableView" destination="ayr-Db-Z0d" id="PdN-dL-ZdG"/>
                         <outlet property="tagLabel" destination="eT4-Jh-zXa" id="6kL-jS-Dum"/>
+                        <outlet property="toInfoView" destination="qsi-J5-fWi" id="FfP-yb-5QB"/>
                         <outlet property="updateAtLabel" destination="M6j-Yl-Irv" id="WRX-p5-Sbe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="48" y="-2"/>
+            <point key="canvasLocation" x="46.564885496183201" y="-2.1126760563380285"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="uPk-8j-k1I">
@@ -159,7 +169,9 @@
                             <constraint firstItem="tgT-Ld-mAO" firstAttribute="trailing" secondItem="QAR-6j-ndo" secondAttribute="trailing" id="lCk-zw-PlC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UIS-1F-yBc"/>
+                    <navigationItem key="navigationItem" id="UIS-1F-yBc">
+                        <nil key="title"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hsl-ss-79e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -167,6 +179,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="info.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="color_placeholder">
+            <color red="0.54509803921568623" green="0.54509803921568623" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
