@@ -8,7 +8,10 @@
 import UIKit
 
 class RankingCell: UITableViewCell {
-
+    var onTapLabel: ((URL) -> Void)?
+    private var url: URL?
+    private var tappableLabels: [UILabel: String] = [:]
+    
     @IBOutlet weak var rankingImage: UIImageView!
     @IBOutlet weak var rankingLabel: UILabel!
     @IBOutlet weak var rankLabel: UILabel!
@@ -24,10 +27,10 @@ class RankingCell: UITableViewCell {
         super.awakeFromNib()
         
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
     
     func reloadCell(with rankData: RankingData) {
@@ -38,9 +41,36 @@ class RankingCell: UITableViewCell {
         countLabel.text = "(\(formatterNumber(with: rankData.review.count)))"
         priceLabel.text = formatterNumber(with: rankData.item_information.regular_price)
         
+        // rankingImageの初期化処理を追加
+        rankingImage.tintColor = .clear
+        rankingImage.isHidden = false
+        
         configure(with: rankData)
         rank(at: rankData.rank)
+        
+        tappableLabels[nameLabel] = rankData.item_information.url
+        tappableLabels[storeLabel] = rankData.seller.url
+        tappableLabels[countLabel] = rankData.review.url
+        
+        setupTapGestures()
     }
+    
+    private func setupTapGestures() {
+            for (label, url) in tappableLabels {
+                self.url = URL(string: url)
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+                label.addGestureRecognizer(tapGesture)
+                label.isUserInteractionEnabled = true
+                
+            }
+        }
+    
+    @objc private func handleTap(_ sender: UITapGestureRecognizer) {
+            guard let label = sender.view as? UILabel, let urlString = tappableLabels[label], let url = URL(string: urlString) else {
+                return
+            }
+            onTapLabel?(url)
+        }
     
     func configure(with rankingData: RankingData) {
         let imageURL = rankingData.image.medium
@@ -92,7 +122,7 @@ class RankingCell: UITableViewCell {
         let formattedValue = numberFormatter.string(from: NSNumber(value: number)) ?? ""
         return formattedValue
     }
-
+    
 }
 
 extension UIColor {

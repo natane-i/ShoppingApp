@@ -133,6 +133,38 @@
             </objects>
             <point key="canvasLocation" x="48" y="-2"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="uPk-8j-k1I">
+            <objects>
+                <viewController id="Ij6-AL-bTi" customClass="WebViewController" customModule="ShoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lN7-eB-AfI">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QAR-6j-ndo">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tgT-Ld-mAO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tgT-Ld-mAO" firstAttribute="bottom" secondItem="QAR-6j-ndo" secondAttribute="bottom" id="F4V-nf-dwH"/>
+                            <constraint firstItem="QAR-6j-ndo" firstAttribute="top" secondItem="tgT-Ld-mAO" secondAttribute="top" id="LJP-CH-dtO"/>
+                            <constraint firstItem="QAR-6j-ndo" firstAttribute="leading" secondItem="tgT-Ld-mAO" secondAttribute="leading" id="ZXW-Np-7G9"/>
+                            <constraint firstItem="tgT-Ld-mAO" firstAttribute="trailing" secondItem="QAR-6j-ndo" secondAttribute="trailing" id="lCk-zw-PlC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="UIS-1F-yBc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hsl-ss-79e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="784" y="-2"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">

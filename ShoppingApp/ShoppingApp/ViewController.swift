@@ -50,7 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         cell.setup()
         
         let categoryID = CategoryID.allCases[indexPath.item]
-        cell.categoryLabel.text = confirm(tag: categoryID)
+        cell.categoryLabel.text = fetchTagString(tag: categoryID)
         
         return cell
     }
@@ -70,6 +70,12 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
         
         let rankData = rankingData[indexPath.row]
         cell.reloadCell(with: rankData)
+        weak var weakSelf = self
+        cell.onTapLabel = { [weak weakSelf] url in
+            guard let strongSelf = weakSelf else { return }
+            let webVC = WebViewController(url: url)
+            strongSelf.present(webVC, animated: true, completion: nil)
+        }
         
         return cell
     }
@@ -85,12 +91,16 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
                 self?.updateDate = result.meta.last_modified
                 self?.updateAtLabel.text = self?.updateDate
                 self?.tableView.reloadData()
-                self?.tagLabel.text = self?.confirm(tag: tag)
+                if tag == .shopping {
+                    self?.tagLabel.text = "総合ランキング"
+                } else {
+                    self?.tagLabel.text = self?.fetchTagString(tag: tag)
+                }
             }
         }
     }
     
-    func confirm(tag: CategoryID) -> String {
+    func fetchTagString(tag: CategoryID) -> String {
         var tagName = ""
         
         switch tag{
@@ -114,6 +124,32 @@ class ViewController: UIViewController, UITableViewDataSource, UICollectionViewD
             tagName = "家電"
         case .furniture:
             tagName = "家具、インテリア"
+        case .flower:
+            tagName = "花、ガーデニング"
+        case .necessities:
+            tagName = "キッチン、日用品、文具"
+        case .tool:
+            tagName = "DIY、工具"
+        case .pet:
+            tagName = "ペット用品、生き物"
+        case .handicraft:
+            tagName = "楽器、手芸、コレクション"
+        case .game:
+            tagName = "ゲーム、おもちゃ"
+        case .baby:
+            tagName = "ベビー、キッズ、マタニティ"
+        case .sport:
+            tagName = "スポーツ"
+        case .car:
+            tagName = "車、バイク、自転車"
+        case .record:
+            tagName = "CD、音楽ソフト、チケット"
+        case .video:
+            tagName = "DVD、映像ソフト"
+        case .book:
+            tagName = "本、雑誌、コミック"
+        case .rental:
+            tagName = "レンタル、各種サービス"
         }
         
         return tagName

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB3BB68E2C3CC49800CAEF84 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3BB68D2C3CC49800CAEF84 /* WebViewController.swift */; };
 		BB4F0C1C2C37878F00AEFC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4F0C1B2C37878F00AEFC58 /* AppDelegate.swift */; };
 		BB4F0C1E2C37878F00AEFC58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4F0C1D2C37878F00AEFC58 /* SceneDelegate.swift */; };
 		BB4F0C202C37878F00AEFC58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4F0C1F2C37878F00AEFC58 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB3BB68D2C3CC49800CAEF84 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = SOURCE_ROOT; };
 		BB4F0C182C37878F00AEFC58 /* ShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB4F0C1B2C37878F00AEFC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB4F0C1D2C37878F00AEFC58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		BB4F0C1A2C37878F00AEFC58 /* ShoppingApp */ = {
 			isa = PBXGroup;
 			children = (
+				BB3BB68D2C3CC49800CAEF84 /* WebViewController.swift */,
 				BB4F0C1B2C37878F00AEFC58 /* AppDelegate.swift */,
 				BB4F0C1D2C37878F00AEFC58 /* SceneDelegate.swift */,
 				BB4F0C1F2C37878F00AEFC58 /* ViewController.swift */,
@@ -173,6 +176,7 @@
 				BB4F0C322C37904300AEFC58 /* Structs.swift in Sources */,
 				BB4F0C1C2C37878F00AEFC58 /* AppDelegate.swift in Sources */,
 				BB4F0C1E2C37878F00AEFC58 /* SceneDelegate.swift in Sources */,
+				BB3BB68E2C3CC49800CAEF84 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
