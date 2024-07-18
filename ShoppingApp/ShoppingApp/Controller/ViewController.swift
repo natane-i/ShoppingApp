@@ -44,7 +44,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         DispatchQueue.main.async {
             if let cell = self.collectionView.cellForItem(at: IndexPath(item: CategoryID.shopping.rawValue - 1, section: 0)) as? CategoryIcon {
                 cell.isSelected = true
-                print(CategoryID.shopping.rawValue)
             }
         }
     }
