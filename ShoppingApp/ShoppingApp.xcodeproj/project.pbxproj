@@ -35,7 +35,7 @@
 		BB4F0C2F2C37881D00AEFC58 /* GetRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRanking.swift; sourceTree = "<group>"; };
 		BB4F0C312C37904300AEFC58 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		BB4F0C342C37A5A700AEFC58 /* RankingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankingCell.xib; sourceTree = "<group>"; };
-		BB4F0C362C37B23900AEFC58 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RankingCell.swift; path = ShoppingApp/View/Cells/RankingCell.swift; sourceTree = SOURCE_ROOT; };
+		BB4F0C362C37B23900AEFC58 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RankingCell.swift; path = ShoppingApp/Model/Cells/RankingCell.swift; sourceTree = SOURCE_ROOT; };
 		BB4F0C382C37D6E700AEFC58 /* CategoryIcon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryIcon.xib; sourceTree = "<group>"; };
 		BB4F0C3A2C37D87B00AEFC58 /* CategoryIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,7 +92,7 @@
 			children = (
 				BB4F0C1B2C37878F00AEFC58 /* AppDelegate.swift */,
 				BB4F0C1D2C37878F00AEFC58 /* SceneDelegate.swift */,
-				BB4F0C212C37878F00AEFC58 /* Main.storyboard */,
+				BBB40DEA2C48AF8D0053373C /* Model */,
 				BB4F0C332C37906600AEFC58 /* View */,
 				BB11FE1E2C3E16670040E3E4 /* Controller */,
 				BB4F0C242C37879100AEFC58 /* Assets.xcassets */,
@@ -105,11 +105,19 @@
 		BB4F0C332C37906600AEFC58 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BB4F0C212C37878F00AEFC58 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BBB40DEA2C48AF8D0053373C /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				BB4F0C312C37904300AEFC58 /* Structs.swift */,
 				BB4F0C2F2C37881D00AEFC58 /* GetRanking.swift */,
 				BB11FE1D2C3E163E0040E3E4 /* Cells */,
 			);
-			path = View;
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
