@@ -26,12 +26,10 @@ class RankingCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
     
     func reloadCell(with rankData: RankingData) {
@@ -57,15 +55,6 @@ class RankingCell: UITableViewCell {
         updateStarImage(at: rankData.review.rate)
     }
     
-//    func updateStarImage(at rating: Double) {
-//        let roundedRating = round(rating * 2) / 2
-//        for (index, imageView) in stars.enumerated() {
-//            let fillLevel = min(1.0, max(0.0, roundedRating - Double(index)))
-//            imageView.image = fillLevel == 1.0 ? UIImage(systemName: "star.fill") :
-//            fillLevel == 0.0 ? UIImage(systemName: "star") : UIImage(named: "image_star_half")
-//        }
-//    }
-//
     func updateStarImage(at rating: Double) {
         let roundedRating = round(rating * 2) / 2
         for (index, imageView) in stars.enumerated() {
